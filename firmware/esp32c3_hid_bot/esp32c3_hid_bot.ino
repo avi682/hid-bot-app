@@ -13,7 +13,7 @@ const int udpPort = 4210;
 const char* udpMessage = "HID_BOT_DISCOVER";
 const char* udpResponse = "HID_BOT_HERE";
 
-const String CURRENT_VERSION = "1.1.0";
+const String CURRENT_VERSION = "1.2.0";
 const String VERSION_URL = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/firmware/esp32_version.json";
 
 WebServer server(80);
@@ -30,6 +30,7 @@ void checkForUpdate() {
     client.setInsecure(); // GitHub raw content requires HTTPS
     
     HTTPClient http;
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
     if (http.begin(client, VERSION_URL)) {
         int httpCode = http.GET();
         if (httpCode == 200) {
@@ -47,6 +48,7 @@ void checkForUpdate() {
                     // Close the current HTTP connection before starting OTA
                     http.end(); 
                     
+                    httpUpdate.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
                     t_httpUpdate_return ret = httpUpdate.update(client, String(binUrl));
                     switch (ret) {
                         case HTTP_UPDATE_FAILED:
@@ -160,7 +162,7 @@ void executeActionSequence() {
       delay(500);
       
       // 2. Type URL
-      keyboard.print("https://google.com");
+      keyboard.print("https://youtube.com");
       delay(200);
       
       // 3. Press Enter
