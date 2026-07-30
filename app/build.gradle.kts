@@ -11,8 +11,8 @@ android {
         applicationId = "com.example.hidbotcontroller"
         minSdk = 24
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.3"
+        versionCode = 8
+        versionName = "1.4"
     }
 
     buildTypes {

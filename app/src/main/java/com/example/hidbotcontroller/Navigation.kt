@@ -79,31 +79,8 @@ fun MainNavigation() {
                 )
             }
             entry<Settings> {
-                var currentIp by remember { mutableStateOf(espIp) }
-                val prefs = context.getSharedPreferences("hid_bot_prefs", Context.MODE_PRIVATE)
-                val defaultUrl = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/version.json"
-                var updateUrl by remember { mutableStateOf(prefs.getString("update_url", defaultUrl) ?: defaultUrl) }
-                var connectionTestResult by remember { mutableStateOf<String?>(null) }
-                
                 SettingsScreen(
-                    currentIp = currentIp,
-                    updateUrl = updateUrl,
-                    onIpChange = { newIp ->
-                        currentIp = newIp
-                        prefs.edit().putString("esp_ip", newIp).apply()
-                        viewModel.setManualIp(newIp)
-                    },
-                    onUpdateUrlChange = { newUrl ->
-                        updateUrl = newUrl
-                        prefs.edit().putString("update_url", newUrl).apply()
-                    },
-                    onTestConnection = {
-                        viewModel.testConnection { success ->
-                            connectionTestResult = if (success) "מחובר!" else "לא מצליח להתחבר"
-                        }
-                    },
                     onCheckUpdates = { viewModel.checkForUpdates(context) },
-                    connectionTestResult = connectionTestResult,
                     onBack = { backStack.removeLastOrNull() },
                     modifier = Modifier.safeDrawingPadding()
                 )
