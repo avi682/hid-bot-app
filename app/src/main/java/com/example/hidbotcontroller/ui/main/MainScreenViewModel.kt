@@ -1,6 +1,7 @@
 package com.example.hidbotcontroller.ui.main
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hidbotcontroller.network.EspClient
@@ -139,6 +140,10 @@ class MainScreenViewModel : ViewModel() {
             if (info != null) {
                 _updateInfo.value = info
                 _showUpdateDialog.value = true
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "האפליקציה בגרסה המעודכנת ביותר", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
