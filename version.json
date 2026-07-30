@@ -1,6 +1,6 @@
 {
-    "version": "1.4",
-    "versionCode": 8,
-    "apkUrl": "https://github.com/avi682/hid-bot-app/releases/download/v1.4/app-debug.apk",
-    "changelog": "- ממשק הגדרות נקי ואוטומטי לחלוטין\n- הוסר הצורך בהכנסת IP או URL ידנית"
+    "version": "1.5",
+    "versionCode": 9,
+    "apkUrl": "https://raw.githubusercontent.com/avi682/hid-bot-app/main/app-release.apk",
+    "changelog": "- נוסף מתג לבחירת שפת המחשב (עברית/אנגלית)\n- המקלדת תחליף שפה אוטומטית כשהמחשב בעברית!"
 }

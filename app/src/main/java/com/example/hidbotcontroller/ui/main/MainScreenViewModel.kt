@@ -92,6 +92,13 @@ class MainScreenViewModel : ViewModel() {
         }
     }
 
+    private val _isHebrew = MutableStateFlow(true) // Default to Hebrew since that's what the user asked
+    val isHebrew: StateFlow<Boolean> = _isHebrew.asStateFlow()
+
+    fun setHebrew(isHebrew: Boolean) {
+        _isHebrew.value = isHebrew
+    }
+
     fun toggleBot() {
         viewModelScope.launch {
             val ip = _espIp.value
@@ -103,7 +110,7 @@ class MainScreenViewModel : ViewModel() {
                     _isRunning.value = false
                 }
             } else {
-                val success = espClient.start(ip)
+                val success = espClient.start(ip, _isHebrew.value)
                 if (success) {
                     _isRunning.value = true
                 }

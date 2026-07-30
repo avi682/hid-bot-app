@@ -27,6 +27,7 @@ fun MainNavigation() {
     val espIp by viewModel.espIp.collectAsStateWithLifecycle()
     val showUpdateDialog by viewModel.showUpdateDialog.collectAsStateWithLifecycle()
     val updateInfo by viewModel.updateInfo.collectAsStateWithLifecycle()
+    val isHebrew by viewModel.isHebrew.collectAsStateWithLifecycle()
 
     if (showUpdateDialog && updateInfo != null) {
         androidx.compose.material3.AlertDialog(
@@ -73,6 +74,8 @@ fun MainNavigation() {
                     isConnected = isConnected,
                     isRunning = isRunning,
                     espIp = espIp,
+                    isHebrew = isHebrew,
+                    onHebrewChange = { viewModel.setHebrew(it) },
                     onToggle = { viewModel.toggleBot() },
                     onSettingsClick = { backStack.add(Settings) },
                     modifier = Modifier.safeDrawingPadding()

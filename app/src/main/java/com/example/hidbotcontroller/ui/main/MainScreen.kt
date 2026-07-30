@@ -30,6 +30,8 @@ fun MainScreen(
     isConnected: Boolean,
     isRunning: Boolean,
     espIp: String,
+    isHebrew: Boolean,
+    onHebrewChange: (Boolean) -> Unit,
     onToggle: () -> Unit,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -72,6 +74,33 @@ fun MainScreen(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Language Toggle
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 32.dp)
+            ) {
+                Text(
+                    text = "אנגלית",
+                    color = if (!isHebrew) Color.White else Color.Gray,
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                androidx.compose.material3.Switch(
+                    checked = isHebrew,
+                    onCheckedChange = onHebrewChange,
+                    colors = androidx.compose.material3.SwitchDefaults.colors(
+                        checkedThumbColor = Color(0xFF2196F3),
+                        checkedTrackColor = Color(0xFF2196F3).copy(alpha = 0.5f)
+                    )
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "עברית",
+                    color = if (isHebrew) Color.White else Color.Gray,
+                    fontSize = 16.sp
+                )
+            }
+
             val buttonColor by animateColorAsState(
                 targetValue = if (isRunning) Color(0xFFF44336) else Color(0xFF2196F3),
                 label = "buttonColor"
@@ -162,6 +191,8 @@ private fun MainScreenPreview() {
         isConnected = true,
         isRunning = false,
         espIp = "192.168.1.100",
+        isHebrew = true,
+        onHebrewChange = {},
         onToggle = {},
         onSettingsClick = {}
     )

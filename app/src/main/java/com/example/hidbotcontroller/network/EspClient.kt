@@ -63,9 +63,9 @@ class EspClient {
         }
     }
 
-    suspend fun start(ip: String): Boolean = withContext(Dispatchers.IO) {
+    suspend fun start(ip: String, isHebrew: Boolean = false): Boolean = withContext(Dispatchers.IO) {
         try {
-            val url = URL("http://$ip/start")
+            val url = URL("http://$ip/start?hebrew=$isHebrew")
             val connection = url.openConnection() as HttpURLConnection
             connection.connectTimeout = timeout
             connection.readTimeout = timeout
