@@ -13,13 +13,7 @@ import com.example.hidbotcontroller.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    currentIp: String,
-    updateUrl: String,
-    onIpChange: (String) -> Unit,
-    onUpdateUrlChange: (String) -> Unit,
-    onTestConnection: () -> Unit,
     onCheckUpdates: () -> Unit,
-    connectionTestResult: String?,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -72,7 +66,7 @@ fun SettingsScreen(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "גרסה: 1.3",
+                    text = "גרסה: 1.4",
                     color = TextGray,
                     fontSize = 14.sp
                 )
