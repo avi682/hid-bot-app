@@ -1,6 +1,6 @@
 {
-    "version": "1.3",
-    "versionCode": 7,
-    "apkUrl": "https://github.com/avi682/hid-bot-app/releases/download/v1.3/app-debug.apk",
-    "changelog": "עכשיו החלון הקופץ עובד!\n+ הוספנו כפתורי אישור וביטול לעדכון באוויר."
+    "version": "1.4",
+    "versionCode": 8,
+    "apkUrl": "https://github.com/avi682/hid-bot-app/releases/download/v1.4/app-debug.apk",
+    "changelog": "- ממשק הגדרות נקי ואוטומטי לחלוטין\n- הוסר הצורך בהכנסת IP או URL ידנית"
 }
