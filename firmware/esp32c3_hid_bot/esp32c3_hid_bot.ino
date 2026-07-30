@@ -13,7 +13,7 @@ const int udpPort = 4210;
 const char* udpMessage = "HID_BOT_DISCOVER";
 const char* udpResponse = "HID_BOT_HERE";
 
-const String CURRENT_VERSION = "1.0.0";
+const String CURRENT_VERSION = "1.1.0";
 const String VERSION_URL = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/firmware/esp32_version.json";
 
 WebServer server(80);
@@ -159,8 +159,8 @@ void executeActionSequence() {
       keyboard.tap(KEY_R, KEY_MOD_LGUI);
       delay(500);
       
-      // 2. Type youtube URL
-      keyboard.print("https://youtube.com");
+      // 2. Type URL
+      keyboard.print("https://google.com");
       delay(200);
       
       // 3. Press Enter
