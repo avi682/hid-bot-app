@@ -145,7 +145,7 @@ fun MainScreen(
 
         // Bottom Text
         Text(
-            text = "גרסה 1.2",
+            text = "גרסה 1.3",
             color = Color.Gray,
             fontSize = 12.sp,
             modifier = Modifier
