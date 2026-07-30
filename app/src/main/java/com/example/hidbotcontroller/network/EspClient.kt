@@ -92,4 +92,19 @@ class EspClient {
             false
         }
     }
+
+    suspend fun checkUpdate(ip: String): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val url = URL("http://$ip/check_update")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.connectTimeout = timeout
+            connection.readTimeout = timeout
+            connection.requestMethod = "POST"
+            val responseCode = connection.responseCode
+            connection.disconnect()
+            responseCode == 200
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

@@ -1,5 +1,5 @@
 {
-    "version": "1.5",
+    "version": "1.5.0",
     "versionCode": 9,
     "apkUrl": "https://raw.githubusercontent.com/avi682/hid-bot-app/main/app-release.apk",
     "changelog": "- נוסף מתג לבחירת שפת המחשב (עברית/אנגלית)\n- המקלדת תחליף שפה אוטומטית כשהמחשב בעברית!"

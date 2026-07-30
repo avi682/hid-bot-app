@@ -158,6 +158,33 @@ class MainScreenViewModel : ViewModel() {
         }
     }
 
+    fun checkEspUpdates(context: Context) {
+        viewModelScope.launch {
+            val ip = _espIp.value
+            if (ip.isEmpty()) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "הבקר לא מחובר", Toast.LENGTH_SHORT).show()
+                }
+                return@launch
+            }
+            
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "שולח בקשת עדכון לבקר...", Toast.LENGTH_SHORT).show()
+            }
+            
+            val success = espClient.checkUpdate(ip)
+            if (success) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "הבקר בודק עדכונים כעת!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "שגיאה בתקשורת עם הבקר", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     fun dismissUpdateDialog() {
         _showUpdateDialog.value = false
     }

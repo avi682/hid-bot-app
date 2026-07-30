@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -14,6 +15,7 @@ import com.example.hidbotcontroller.theme.*
 @Composable
 fun SettingsScreen(
     onCheckUpdates: () -> Unit,
+    onCheckEspUpdate: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -52,7 +54,18 @@ fun SettingsScreen(
                     ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("בדוק עדכונים")
+                    Text("בדוק עדכונים לאפליקציה")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = onCheckEspUpdate,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF4CAF50),
+                        contentColor = TextWhite
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("בדוק עדכונים לבקר (ESP32)")
                 }
             }
             
@@ -66,7 +79,7 @@ fun SettingsScreen(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "גרסה: 1.4",
+                    text = "גרסה: 1.5.0",
                     color = TextGray,
                     fontSize = 14.sp
                 )

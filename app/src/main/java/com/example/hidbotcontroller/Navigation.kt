@@ -84,6 +84,7 @@ fun MainNavigation() {
             entry<Settings> {
                 SettingsScreen(
                     onCheckUpdates = { viewModel.checkForUpdates(context) },
+                    onCheckEspUpdate = { viewModel.checkEspUpdates(context) },
                     onBack = { backStack.removeLastOrNull() },
                     modifier = Modifier.safeDrawingPadding()
                 )
