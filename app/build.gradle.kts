@@ -11,7 +11,7 @@ android {
         applicationId = "com.example.hidbotcontroller"
         minSdk = 24
         targetSdk = 36
-        versionCode = 9
+        versionCode = 10
         versionName = "1.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
