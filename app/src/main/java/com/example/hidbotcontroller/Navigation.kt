@@ -25,6 +25,34 @@ fun MainNavigation() {
     val isConnected by viewModel.isConnected.collectAsStateWithLifecycle()
     val isRunning by viewModel.isRunning.collectAsStateWithLifecycle()
     val espIp by viewModel.espIp.collectAsStateWithLifecycle()
+    val showUpdateDialog by viewModel.showUpdateDialog.collectAsStateWithLifecycle()
+    val updateInfo by viewModel.updateInfo.collectAsStateWithLifecycle()
+
+    if (showUpdateDialog && updateInfo != null) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { viewModel.dismissUpdateDialog() },
+            title = { androidx.compose.material3.Text("עדכון חדש זמין!") },
+            text = { 
+                androidx.compose.foundation.layout.Column {
+                    androidx.compose.material3.Text("גרסה: ${updateInfo?.version}")
+                    androidx.compose.material3.Text("מה חדש:\n${updateInfo?.changelog}")
+                }
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = { 
+                    viewModel.dismissUpdateDialog()
+                    viewModel.downloadAndInstallUpdate(context) 
+                }) {
+                    androidx.compose.material3.Text("עדכן עכשיו")
+                }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(onClick = { viewModel.dismissUpdateDialog() }) {
+                    androidx.compose.material3.Text("ביטול")
+                }
+            }
+        )
+    }
 
     // Load saved IP on first composition
     LaunchedEffect(Unit) {
