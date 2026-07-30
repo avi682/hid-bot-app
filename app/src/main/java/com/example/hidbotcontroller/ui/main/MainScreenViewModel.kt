@@ -155,6 +155,15 @@ class MainScreenViewModel : ViewModel() {
         _showUpdateDialog.value = false
     }
 
+    fun downloadAndInstallUpdate(context: Context) {
+        val info = _updateInfo.value ?: return
+        viewModelScope.launch {
+            updateManager.downloadAndInstallApk(context, info.apkUrl) { progress ->
+                // Optional: handle progress
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         discovery.stopDiscovery()
