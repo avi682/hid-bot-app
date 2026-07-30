@@ -1,6 +1,6 @@
 {
-    "version": "1.0.3",
-    "versionCode": 4,
-    "apkUrl": "https://github.com/avi682/hid-bot-app/releases/download/v1.0.3/app-debug.apk",
-    "changelog": "אייקון חדש לאפליקציה!"
+    "version": "1.1",
+    "versionCode": 5,
+    "apkUrl": "https://github.com/avi682/hid-bot-app/releases/download/v1.1/app-debug.apk",
+    "changelog": "בדיקת מערכת העדכונים (OTA) + שינוי מספר הגרסה במסך הבית ל-1.1"
 }
