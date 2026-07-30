@@ -53,7 +53,8 @@ fun MainNavigation() {
             entry<Settings> {
                 var currentIp by remember { mutableStateOf(espIp) }
                 val prefs = context.getSharedPreferences("hid_bot_prefs", Context.MODE_PRIVATE)
-                var updateUrl by remember { mutableStateOf(prefs.getString("update_url", "") ?: "") }
+                val defaultUrl = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/version.json"
+                var updateUrl by remember { mutableStateOf(prefs.getString("update_url", defaultUrl) ?: defaultUrl) }
                 var connectionTestResult by remember { mutableStateOf<String?>(null) }
                 
                 SettingsScreen(

@@ -133,7 +133,8 @@ class MainScreenViewModel : ViewModel() {
     fun checkForUpdates(context: Context) {
         viewModelScope.launch {
             val prefs = context.getSharedPreferences("hid_bot_prefs", Context.MODE_PRIVATE)
-            val updateUrl = prefs.getString("update_url", "") ?: ""
+            val defaultUrl = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/version.json"
+            val updateUrl = prefs.getString("update_url", defaultUrl) ?: defaultUrl
             val info = updateManager.checkForUpdate(context, updateUrl)
             if (info != null) {
                 _updateInfo.value = info
