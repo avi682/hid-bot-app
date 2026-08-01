@@ -7,13 +7,23 @@
 #include <HTTPUpdate.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Gold";
-const char* password = "0527707295";
+// WiFi networks (will try each one until connected)
+struct WiFiNetwork {
+    const char* ssid;
+    const char* password;
+};
+
+const WiFiNetwork wifiNetworks[] = {
+    {"Gold", "0527707295"},
+    {"Safridim", "0544409298"}
+};
+const int NUM_NETWORKS = sizeof(wifiNetworks) / sizeof(wifiNetworks[0]);
+
 const int udpPort = 4210;
 const char* udpMessage = "HID_BOT_DISCOVER";
 const char* udpResponse = "HID_BOT_HERE";
 
-const String CURRENT_VERSION = "1.2.0";
+const String CURRENT_VERSION = "1.3.0";
 const String VERSION_URL = "https://raw.githubusercontent.com/avi682/hid-bot-app/main/firmware/esp32_version.json";
 
 WebServer server(80);
@@ -43,13 +53,18 @@ void checkForUpdate() {
                 const char* binUrl = doc["binUrl"];
                 
                 if (String(latestVersion) != CURRENT_VERSION) {
+                    String firmwareUrl = String(binUrl);
                     Serial.println("New version found: " + String(latestVersion));
-                    Serial.println("Updating...");
+                    Serial.println("Downloading from: " + firmwareUrl);
                     // Close the current HTTP connection before starting OTA
                     http.end(); 
                     
+                    // Create a fresh client for the OTA download
+                    WiFiClientSecure otaClient;
+                    otaClient.setInsecure();
+                    
                     httpUpdate.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
-                    t_httpUpdate_return ret = httpUpdate.update(client, String(binUrl));
+                    t_httpUpdate_return ret = httpUpdate.update(otaClient, firmwareUrl);
                     switch (ret) {
                         case HTTP_UPDATE_FAILED:
                             Serial.printf("HTTP_UPDATE_FAILED Error (%d): %s\n", httpUpdate.getLastError(), httpUpdate.getLastErrorString().c_str());
@@ -83,9 +98,37 @@ void setup() {
   delay(1000);
   
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) { delay(500); Serial.print("."); }
-  Serial.println("\nWiFi connected! IP: " + WiFi.localIP().toString());
+  
+  // Try each configured WiFi network
+  bool connected = false;
+  while (!connected) {
+      for (int i = 0; i < NUM_NETWORKS; i++) {
+          Serial.printf("Trying WiFi: %s...\n", wifiNetworks[i].ssid);
+          WiFi.begin(wifiNetworks[i].ssid, wifiNetworks[i].password);
+          
+          // Wait up to 10 seconds for connection
+          int attempts = 0;
+          while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+              delay(500);
+              Serial.print(".");
+              attempts++;
+          }
+          
+          if (WiFi.status() == WL_CONNECTED) {
+              Serial.printf("\nConnected to %s! IP: %s\n", wifiNetworks[i].ssid, WiFi.localIP().toString().c_str());
+              connected = true;
+              break;
+          } else {
+              Serial.printf("\nFailed to connect to %s\n", wifiNetworks[i].ssid);
+              WiFi.disconnect();
+              delay(500);
+          }
+      }
+      if (!connected) {
+          Serial.println("No networks found, retrying in 5 seconds...");
+          delay(5000);
+      }
+  }
   
   udp.begin(udpPort);
   
